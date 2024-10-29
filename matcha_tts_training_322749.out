@@ -1,0 +1,206 @@
+[[36m2024-10-29 19:39:06,887[0m][[34mmatcha.utils.utils[0m][[32mINFO[0m] - Enforcing tags! <cfg.extras.enforce_tags=True>[0m
+[[36m2024-10-29 19:39:06,893[0m][[34mmatcha.utils.utils[0m][[32mINFO[0m] - Printing config tree with Rich! <cfg.extras.print_config=True>[0m
+CONFIG
+├── data
+│   └── _target_: matcha.data.text_mel_datamodule.TextMelDataModule             
+│       name: vctk                                                              
+│       train_filelist_path: /home/victoria/training_data/combined_training_data
+│       valid_filelist_path: /home/victoria/training_data/combined_training_data
+│       batch_size: 8                                                           
+│       num_workers: 20                                                         
+│       pin_memory: true                                                        
+│       cleaners:                                                               
+│       - english_cleaners2                                                     
+│       add_blank: true                                                         
+│       n_spks: 40                                                              
+│       n_fft: 1024                                                             
+│       n_feats: 80                                                             
+│       sample_rate: 22050                                                      
+│       hop_length: 256                                                         
+│       win_length: 1024                                                        
+│       f_min: 0                                                                
+│       f_max: 8000                                                             
+│       data_statistics:                                                        
+│         mel_mean: -5.45385217666626                                           
+│         mel_std: 2.1278066635131836                                           
+│       seed: 1234                                                              
+│       load_durations: false                                                   
+│                                                                               
+├── model
+│   └── _target_: matcha.models.matcha_tts.MatchaTTS                            
+│       n_vocab: 178                                                            
+│       n_spks: 40                                                              
+│       spk_emb_dim: 64                                                         
+│       n_feats: 80                                                             
+│       data_statistics:                                                        
+│         mel_mean: -5.45385217666626                                           
+│         mel_std: 2.1278066635131836                                           
+│       out_size: null                                                          
+│       prior_loss: true                                                        
+│       use_precomputed_durations: false                                        
+│       encoder:                                                                
+│         encoder_type: RoPE Encoder                                            
+│         encoder_params:                                                       
+│           n_feats: 80                                                         
+│           n_channels: 192                                                     
+│           filter_channels: 768                                                
+│           filter_channels_dp: 256                                             
+│           n_heads: 2                                                          
+│           n_layers: 6                                                         
+│           kernel_size: 3                                                      
+│           p_dropout: 0.1                                                      
+│           spk_emb_dim: 64                                                     
+│           n_spks: 1                                                           
+│           prenet: true                                                        
+│         duration_predictor_params:                                            
+│           filter_channels_dp: 256                                             
+│           kernel_size: 3                                                      
+│           p_dropout: 0.1                                                      
+│       decoder:                                                                
+│         channels:                                                             
+│         - 256                                                                 
+│         - 256                                                                 
+│         dropout: 0.05                                                         
+│         attention_head_dim: 64                                                
+│         n_blocks: 1                                                           
+│         num_mid_blocks: 2                                                     
+│         num_heads: 2                                                          
+│         act_fn: snakebeta                                                     
+│       cfm:                                                                    
+│         name: CFM                                                             
+│         solver: euler                                                         
+│         sigma_min: 0.0001                                                     
+│       optimizer:                                                              
+│         _target_: torch.optim.Adam                                            
+│         _partial_: true                                                       
+│         lr: 0.0001                                                            
+│         weight_decay: 0.0                                                     
+│                                                                               
+├── callbacks
+│   └── model_checkpoint:                                                       
+│         _target_: lightning.pytorch.callbacks.ModelCheckpoint                 
+│         dirpath: /home/victoria/Matcha-TTS/logs/train/multispeaker/runs/2024-1
+│         filename: checkpoint_{epoch:03d}                                      
+│         monitor: epoch                                                        
+│         verbose: false                                                        
+│         save_last: true                                                       
+│         save_top_k: 10                                                        
+│         mode: max                                                             
+│         auto_insert_metric_name: true                                         
+│         save_weights_only: false                                              
+│         every_n_train_steps: null                                             
+│         train_time_interval: null                                             
+│         every_n_epochs: 1000                                                  
+│         save_on_train_epoch_end: null                                         
+│       model_summary:                                                          
+│         _target_: lightning.pytorch.callbacks.RichModelSummary                
+│         max_depth: 3                                                          
+│       rich_progress_bar:                                                      
+│         _target_: lightning.pytorch.callbacks.RichProgressBar                 
+│                                                                               
+├── logger
+│   └── tensorboard:                                                            
+│         _target_: lightning.pytorch.loggers.tensorboard.TensorBoardLogger     
+│         save_dir: /home/victoria/Matcha-TTS/logs/train/multispeaker/runs/2024-
+│         name: null                                                            
+│         log_graph: false                                                      
+│         default_hp_metric: true                                               
+│         prefix: ''                                                            
+│                                                                               
+├── trainer
+│   └── max_epochs: -1                                                          
+│       check_val_every_n_epoch: 1                                              
+│       gradient_clip_val: 5.0                                                  
+│       _target_: lightning.pytorch.trainer.Trainer                             
+│       default_root_dir: /home/victoria/Matcha-TTS/logs/train/multispeaker/runs
+│       accelerator: gpu                                                        
+│       devices:                                                                
+│       - 0                                                                     
+│       precision: 16-mixed                                                     
+│       deterministic: false                                                    
+│                                                                               
+├── paths
+│   └── root_dir: /home/victoria/Matcha-TTS                                     
+│       data_dir: /home/victoria/Matcha-TTS/data/                               
+│       log_dir: /home/victoria/Matcha-TTS/logs/                                
+│       output_dir: /home/victoria/Matcha-TTS/logs/train/multispeaker/runs/2024-
+│       work_dir: /home/victoria/Matcha-TTS                                     
+│                                                                               
+├── extras
+│   └── ignore_warnings: false                                                  
+│       enforce_tags: true                                                      
+│       print_config: true                                                      
+│                                                                               
+├── task_name
+│   └── train                                                                   
+├── run_name
+│   └── multispeaker                                                            
+├── tags
+│   └── ['multispeaker']                                                        
+├── train
+│   └── True                                                                    
+├── test
+│   └── True                                                                    
+├── seed
+│   └── 1234                                                                    
+└── checkpoint_callback
+    └── _target_: pytorch_lightning.callbacks.ModelCheckpoint                   
+        dirpath: /home/victoria/Matcha-TTS/checkpoints                          
+        save_top_k: -1                                                          
+        monitor: val_loss                                                       
+        mode: min                                                               
+        every_n_epochs: 300                                                     
+        save_last: true                                                         
+                                                                                
+[[36m2024-10-29 19:39:06,950[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating datamodule <matcha.data.text_mel_datamodule.TextMelDataModule>[0m
+[[36m2024-10-29 19:39:08,995[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating model <matcha.models.matcha_tts.MatchaTTS>[0m
+[[36m2024-10-29 19:39:09,649[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating callbacks...[0m
+[[36m2024-10-29 19:39:09,650[0m][[34mmatcha.utils.instantiators[0m][[32mINFO[0m] - Instantiating callback <lightning.pytorch.callbacks.ModelCheckpoint>[0m
+[[36m2024-10-29 19:39:09,654[0m][[34mmatcha.utils.instantiators[0m][[32mINFO[0m] - Instantiating callback <lightning.pytorch.callbacks.RichModelSummary>[0m
+[[36m2024-10-29 19:39:09,654[0m][[34mmatcha.utils.instantiators[0m][[32mINFO[0m] - Instantiating callback <lightning.pytorch.callbacks.RichProgressBar>[0m
+[[36m2024-10-29 19:39:09,655[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating loggers...[0m
+[[36m2024-10-29 19:39:09,655[0m][[34mmatcha.utils.instantiators[0m][[32mINFO[0m] - Instantiating logger <lightning.pytorch.loggers.tensorboard.TensorBoardLogger>[0m
+[[36m2024-10-29 19:39:09,660[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating trainer <lightning.pytorch.trainer.Trainer>[0m
+[[36m2024-10-29 19:39:09,729[0m][[34m__main__[0m][[32mINFO[0m] - Logging hyperparameters![0m
+[[36m2024-10-29 19:39:09,866[0m][[34m__main__[0m][[32mINFO[0m] - Starting training![0m
+┏━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┓
+┃    ┃ Name                              ┃ Type              ┃ Params ┃ Mode  ┃
+┡━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━┩
+│ 0  │ spk_emb                           │ Embedding         │  2.6 K │ train │
+│ 1  │ encoder                           │ TextEncoder       │  9.7 M │ train │
+│ 2  │ encoder.emb                       │ Embedding         │ 34.2 K │ train │
+│ 3  │ encoder.prenet                    │ ConvReluNorm      │  591 K │ train │
+│ 4  │ encoder.prenet.conv_layers        │ ModuleList        │  553 K │ train │
+│ 5  │ encoder.prenet.norm_layers        │ ModuleList        │  1.2 K │ train │
+│ 6  │ encoder.prenet.relu_drop          │ Sequential        │      0 │ train │
+│ 7  │ encoder.prenet.proj               │ Conv1d            │ 37.1 K │ train │
+│ 8  │ encoder.encoder                   │ Encoder           │  8.7 M │ train │
+│ 9  │ encoder.encoder.drop              │ Dropout           │      0 │ train │
+│ 10 │ encoder.encoder.attn_layers       │ ModuleList        │  1.6 M │ train │
+│ 11 │ encoder.encoder.norm_layers_1     │ ModuleList        │  3.1 K │ train │
+│ 12 │ encoder.encoder.ffn_layers        │ ModuleList        │  7.1 M │ train │
+│ 13 │ encoder.encoder.norm_layers_2     │ ModuleList        │  3.1 K │ train │
+│ 14 │ encoder.proj_m                    │ Conv1d            │ 20.6 K │ train │
+│ 15 │ encoder.proj_w                    │ DurationPredictor │  395 K │ train │
+│ 16 │ encoder.proj_w.drop               │ Dropout           │      0 │ train │
+│ 17 │ encoder.proj_w.conv_1             │ Conv1d            │  196 K │ train │
+│ 18 │ encoder.proj_w.norm_1             │ LayerNorm         │    512 │ train │
+│ 19 │ encoder.proj_w.conv_2             │ Conv1d            │  196 K │ train │
+│ 20 │ encoder.proj_w.norm_2             │ LayerNorm         │    512 │ train │
+│ 21 │ encoder.proj_w.proj               │ Conv1d            │    257 │ train │
+│ 22 │ decoder                           │ CFM               │ 11.1 M │ train │
+│ 23 │ decoder.estimator                 │ Decoder           │ 11.1 M │ train │
+│ 24 │ decoder.estimator.time_embeddings │ SinusoidalPosEmb  │      0 │ train │
+│ 25 │ decoder.estimator.time_mlp        │ TimestepEmbedding │  1.3 M │ train │
+│ 26 │ decoder.estimator.down_blocks     │ ModuleList        │  3.1 M │ train │
+│ 27 │ decoder.estimator.mid_blocks      │ ModuleList        │  2.8 M │ train │
+│ 28 │ decoder.estimator.up_blocks       │ ModuleList        │  3.7 M │ train │
+│ 29 │ decoder.estimator.final_block     │ Block1D           │  197 K │ train │
+│ 30 │ decoder.estimator.final_proj      │ Conv1d            │ 20.6 K │ train │
+└────┴───────────────────────────────────┴───────────────────┴────────┴───────┘
+Trainable params: 20.9 M                                                        
+Non-trainable params: 0                                                         
+Total params: 20.9 M                                                            
+Total estimated model params size (MB): 83                                      
+Modules in train mode: 334                                                      
+Modules in eval mode: 0                                                         
