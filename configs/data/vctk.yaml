@@ -4,11 +4,11 @@ defaults:
 
 _target_: matcha.data.text_mel_datamodule.TextMelDataModule
 name: vctk
-train_filelist_path: /home/victoria/training_data/combined_training_data/matcha_training_data/matcha_data_train.txt
-valid_filelist_path: /home/victoria/training_data/combined_training_data/matcha_training_data/matcha_data_val.txt
-batch_size: 8
+train_filelist_path: /home/victoria/training_data/combined_training_data_rogaland/matcha_training_data_rogaland/matcha_data_train.txt
+valid_filelist_path: /home/victoria/training_data/combined_training_data_rogaland/matcha_training_data_rogaland/matcha_data_val.txt
+batch_size: 3
 add_blank: True
-n_spks: 40
+n_spks: 56
 data_statistics:
-  mel_mean: -5.45385217666626
-  mel_std: 2.1278066635131836
+  mel_mean: -6.3370361328125
+  mel_std: 1.9160842895507812

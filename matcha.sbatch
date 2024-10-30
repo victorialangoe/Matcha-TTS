@@ -1,11 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name="matcha_tts_training"
+#SBATCH --job-name="matcha_tts_training_rogaland"
 #SBATCH --partition=a100q  # Choose the appropriate partition
 #SBATCH --time=7-00:00:00  # Set the time to 7 days
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
-#SBATCH --gres=gpu:1  # Request 1 GPU
+#SBATCH --gres=gpu:1  
 #SBATCH --output=matcha_tts_training_%j.out
 #SBATCH --error=matcha_tts_training_%j.err
 
