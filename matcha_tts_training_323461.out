@@ -1,18 +1,18 @@
-[[36m2024-10-30 23:48:35,144[0m][[34mmatcha.utils.utils[0m][[32mINFO[0m] - Enforcing tags! <cfg.extras.enforce_tags=True>[0m
-[[36m2024-10-30 23:48:35,149[0m][[34mmatcha.utils.utils[0m][[32mINFO[0m] - Printing config tree with Rich! <cfg.extras.print_config=True>[0m
+[[36m2024-10-31 08:46:41,364[0m][[34mmatcha.utils.utils[0m][[32mINFO[0m] - Enforcing tags! <cfg.extras.enforce_tags=True>[0m
+[[36m2024-10-31 08:46:41,369[0m][[34mmatcha.utils.utils[0m][[32mINFO[0m] - Printing config tree with Rich! <cfg.extras.print_config=True>[0m
 CONFIG
 ├── data
 │   └── _target_: matcha.data.text_mel_datamodule.TextMelDataModule             
 │       name: vctk                                                              
 │       train_filelist_path: /home/victoria/training_data/combined_training_data
 │       valid_filelist_path: /home/victoria/training_data/combined_training_data
-│       batch_size: 3                                                           
+│       batch_size: 8                                                           
 │       num_workers: 20                                                         
 │       pin_memory: true                                                        
 │       cleaners:                                                               
 │       - english_cleaners2                                                     
 │       add_blank: true                                                         
-│       n_spks: 56                                                              
+│       n_spks: 40                                                              
 │       n_fft: 1024                                                             
 │       n_feats: 80                                                             
 │       sample_rate: 22050                                                      
@@ -21,20 +21,20 @@ CONFIG
 │       f_min: 0                                                                
 │       f_max: 8000                                                             
 │       data_statistics:                                                        
-│         mel_mean: -6.3370361328125                                            
-│         mel_std: 1.9160842895507812                                           
+│         mel_mean: -5.45385217666626                                           
+│         mel_std: 2.1278066635131836                                           
 │       seed: 1234                                                              
 │       load_durations: false                                                   
 │                                                                               
 ├── model
 │   └── _target_: matcha.models.matcha_tts.MatchaTTS                            
 │       n_vocab: 178                                                            
-│       n_spks: 56                                                              
+│       n_spks: 40                                                              
 │       spk_emb_dim: 64                                                         
 │       n_feats: 80                                                             
 │       data_statistics:                                                        
-│         mel_mean: -6.3370361328125                                            
-│         mel_std: 1.9160842895507812                                           
+│         mel_mean: -5.45385217666626                                           
+│         mel_std: 2.1278066635131836                                           
 │       out_size: null                                                          
 │       prior_loss: true                                                        
 │       use_precomputed_durations: false                                        
@@ -149,24 +149,24 @@ CONFIG
         save_top_k: -1                                                          
         monitor: val_loss                                                       
         mode: min                                                               
-        every_n_epochs: 300                                                     
+        every_n_epochs: 6                                                       
         save_last: true                                                         
                                                                                 
-[[36m2024-10-30 23:48:35,208[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating datamodule <matcha.data.text_mel_datamodule.TextMelDataModule>[0m
-[[36m2024-10-30 23:48:36,828[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating model <matcha.models.matcha_tts.MatchaTTS>[0m
-[[36m2024-10-30 23:48:37,454[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating callbacks...[0m
-[[36m2024-10-30 23:48:37,454[0m][[34mmatcha.utils.instantiators[0m][[32mINFO[0m] - Instantiating callback <lightning.pytorch.callbacks.ModelCheckpoint>[0m
-[[36m2024-10-30 23:48:37,458[0m][[34mmatcha.utils.instantiators[0m][[32mINFO[0m] - Instantiating callback <lightning.pytorch.callbacks.RichModelSummary>[0m
-[[36m2024-10-30 23:48:37,459[0m][[34mmatcha.utils.instantiators[0m][[32mINFO[0m] - Instantiating callback <lightning.pytorch.callbacks.RichProgressBar>[0m
-[[36m2024-10-30 23:48:37,459[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating loggers...[0m
-[[36m2024-10-30 23:48:37,459[0m][[34mmatcha.utils.instantiators[0m][[32mINFO[0m] - Instantiating logger <lightning.pytorch.loggers.tensorboard.TensorBoardLogger>[0m
-[[36m2024-10-30 23:48:37,464[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating trainer <lightning.pytorch.trainer.Trainer>[0m
-[[36m2024-10-30 23:48:37,535[0m][[34m__main__[0m][[32mINFO[0m] - Logging hyperparameters![0m
-[[36m2024-10-30 23:48:37,641[0m][[34m__main__[0m][[32mINFO[0m] - Starting training![0m
+[[36m2024-10-31 08:46:41,421[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating datamodule <matcha.data.text_mel_datamodule.TextMelDataModule>[0m
+[[36m2024-10-31 08:46:42,829[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating model <matcha.models.matcha_tts.MatchaTTS>[0m
+[[36m2024-10-31 08:46:43,398[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating callbacks...[0m
+[[36m2024-10-31 08:46:43,398[0m][[34mmatcha.utils.instantiators[0m][[32mINFO[0m] - Instantiating callback <lightning.pytorch.callbacks.ModelCheckpoint>[0m
+[[36m2024-10-31 08:46:43,402[0m][[34mmatcha.utils.instantiators[0m][[32mINFO[0m] - Instantiating callback <lightning.pytorch.callbacks.RichModelSummary>[0m
+[[36m2024-10-31 08:46:43,403[0m][[34mmatcha.utils.instantiators[0m][[32mINFO[0m] - Instantiating callback <lightning.pytorch.callbacks.RichProgressBar>[0m
+[[36m2024-10-31 08:46:43,403[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating loggers...[0m
+[[36m2024-10-31 08:46:43,404[0m][[34mmatcha.utils.instantiators[0m][[32mINFO[0m] - Instantiating logger <lightning.pytorch.loggers.tensorboard.TensorBoardLogger>[0m
+[[36m2024-10-31 08:46:43,408[0m][[34m__main__[0m][[32mINFO[0m] - Instantiating trainer <lightning.pytorch.trainer.Trainer>[0m
+[[36m2024-10-31 08:46:43,475[0m][[34m__main__[0m][[32mINFO[0m] - Logging hyperparameters![0m
+[[36m2024-10-31 08:46:43,568[0m][[34m__main__[0m][[32mINFO[0m] - Starting training![0m
 ┏━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┓
 ┃    ┃ Name                              ┃ Type              ┃ Params ┃ Mode  ┃
 ┡━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━┩
-│ 0  │ spk_emb                           │ Embedding         │  3.6 K │ train │
+│ 0  │ spk_emb                           │ Embedding         │  2.6 K │ train │
 │ 1  │ encoder                           │ TextEncoder       │  9.7 M │ train │
 │ 2  │ encoder.emb                       │ Embedding         │ 34.2 K │ train │
 │ 3  │ encoder.prenet                    │ ConvReluNorm      │  591 K │ train │
