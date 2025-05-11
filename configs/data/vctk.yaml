@@ -4,11 +4,11 @@ defaults:
 
 _target_: matcha.data.text_mel_datamodule.TextMelDataModule
 name: vctk
-train_filelist_path: data/filelists/vctk_audio_sid_text_train_filelist.txt
-valid_filelist_path: data/filelists/vctk_audio_sid_text_val_filelist.txt
-batch_size: 32
+train_filelist_path: ../training_data/combined_training_data_vestland/matcha_training_data_vestland/matcha_data_train.txt
+valid_filelist_path: ../training_data/combined_training_data_vestland/matcha_training_data_vestland/matcha_data_val.txt
+batch_size: 8
 add_blank: True
-n_spks: 109
-data_statistics:  # Computed for vctk dataset
-  mel_mean: -6.630575
-  mel_std: 2.482914
+n_spks: 56
+data_statistics:
+  mel_mean: -6.3370361328125
+  mel_std: 1.9160842895507812

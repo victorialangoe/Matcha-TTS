@@ -84,7 +84,8 @@ class BaseLightningClass(LightningModule, ABC):
             on_step=True,
             prog_bar=True,
             logger=True,
-            sync_dist=True,
+            sync_dist=True, 
+            on_epoch=True,
         )
 
         self.log(
@@ -94,6 +95,7 @@ class BaseLightningClass(LightningModule, ABC):
             on_epoch=True,
             logger=True,
             sync_dist=True,
+            prog_bar=True,
         )
         self.log(
             "sub_loss/train_prior_loss",
@@ -102,6 +104,7 @@ class BaseLightningClass(LightningModule, ABC):
             on_epoch=True,
             logger=True,
             sync_dist=True,
+            prog_bar=True,
         )
         self.log(
             "sub_loss/train_diff_loss",
@@ -110,6 +113,7 @@ class BaseLightningClass(LightningModule, ABC):
             on_epoch=True,
             logger=True,
             sync_dist=True,
+            prog_bar=True,
         )
 
         total_loss = sum(loss_dict.values())

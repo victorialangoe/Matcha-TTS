@@ -1,51 +1,51 @@
 # @package _global_
 
-# specify here default configuration
-# order of defaults determines the order in which configs override each other
 defaults:
   - _self_
   - data: ljspeech
   - model: matcha
   - callbacks: default
-  - logger: tensorboard # set logger here or use command line (e.g. `python train.py logger=tensorboard`)
+
+  - logger: null
+
   - trainer: default
   - paths: default
   - extras: default
   - hydra: default
-
-  # experiment configs allow for version control of specific hyperparameters
-  # e.g. best hyperparameters for given model and datamodule
   - experiment: null
-
-  # config for hyperparameter optimization
   - hparams_search: null
-
-  # optional local config for machine/user specific settings
-  # it's optional since it doesn't need to exist and is excluded from version control
   - optional local: default
-
-  # debugging config (enable through command line, e.g. `python train.py debug=default)
   - debug: null
 
-# task name, determines output directory path
+logger:
+  tensorboard:
+    _target_: lightning.pytorch.loggers.tensorboard.TensorBoardLogger
+    save_dir: ${paths.log_dir}
+    name: ${run_name}
+  csv:
+    _target_: lightning.pytorch.loggers.csv_logs.CSVLogger
+    save_dir: ${paths.log_dir}
+    name: ${run_name}
+
 task_name: "train"
+run_name: "matcha_tts"
+tags: ["training"]
 
-run_name: ???
-
-# tags to help you identify your experiments
-# you can overwrite this in experiment configs
-# overwrite from command line with `python train.py tags="[first_tag, second_tag]"`
-tags: ["dev"]
-
-# set False to skip model training
 train: True
-
-# evaluate on test set, using best model weights achieved during training
-# lightning chooses best weights based on the metric specified in checkpoint callback
 test: True
 
-# simply provide checkpoint path to resume training
-ckpt_path: null
-
-# seed for random number generators in pytorch, numpy and python.random
 seed: 1234
+
+trainer:
+  max_epochs: 5
+  check_val_every_n_epoch: 1
+  gradient_clip_val: 1.0
+
+checkpoint_callback:
+  _target_: lightning.pytorch.callbacks.ModelCheckpoint
+  dirpath: /home/victoria/Matcha-TTS/checkpoints
+  save_top_k: 30000
+  monitor: val_loss
+  mode: min
+  every_n_epochs: 50
+  save_last: true
